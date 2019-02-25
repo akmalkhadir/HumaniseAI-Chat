@@ -1,0 +1,62 @@
+{
+  "conversations": {
+    "byId": {
+      "1": {
+        "id": "1",
+        "title": "Conversation between Alice and Mark"
+      },
+      "2": {
+        "id": "2",
+        "title": "Unnamed conversation"
+      }
+    },
+    "allIds": ["1", "2"]
+  },
+  "messages": {
+    "byId": {
+      "1": {
+        "id": "1",
+        "text": "Hello World!",
+        "conversationId": "1",
+        "timestamp": "2018-01-22T09:14:57.502Z"
+      },
+      "2": {
+        "id": "2",
+        "text": "Oh, hi Mark!",
+        "conversationId": "1",
+        "timestamp": "2018-01-22T09:15:57.502Z"
+      },
+      "3": {
+        "id": "3",
+        "text": "What is this?",
+        "conversationId": "2",
+        "timestamp": "2018-01-22T09:15:59.302Z"
+      },
+      "4": {
+        "id": "4",
+        "text": "How are you doing?",
+        "conversationId": "1",
+        "timestamp": "2018-01-22T09:16:59.302Z"
+      },
+      "0-local": {
+        "id": "0-local",
+        "text": "This is a chat application!",
+        "conversationId": "2",
+        "timestamp": "2018-01-22T10:16:42.302Z"
+      },
+      "5": {
+        "id": "5",
+        "text": "Oh I'm doing great! 😁",
+        "conversationId": "1",
+        "timestamp": "2018-01-23T11:23:32.302Z"
+      },
+      "6": {
+        "id": "6",
+        "text": "Watch out I'm not here",
+        "conversationId": "2",
+        "timestamp": "2018-01-23T11:26:32.302Z"
+      }
+    },
+    "allIds": ["1", "2", "3", "4", "0-local", "5"]
+  }
+}
