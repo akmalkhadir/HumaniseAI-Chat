@@ -1,9 +1,9 @@
-import React, { Children } from 'react'
+import React from 'react'
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { withStyles } from '@material-ui/core/styles'
 
-const drawerWidth = 240
+const drawerWidth = 280
 
 const styles = theme => ({
   appBar: {
