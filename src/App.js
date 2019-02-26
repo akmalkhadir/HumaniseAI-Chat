@@ -129,7 +129,7 @@ class App extends Component {
                 </>
               )}
             />
-            <Route component={PageNotFound} />
+            <Route component={PageNotFound} status={404}/>
           </Switch>
         </div>
       </Router>
