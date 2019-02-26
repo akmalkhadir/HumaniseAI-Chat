@@ -11,7 +11,8 @@ import {
 import data from './store.json'
 import TitleBar from './components/TitleBar'
 import ConversationList from './containers/ConversationList'
-import MessagesList from './containers/MessagesList.js';
+import MessagesList from './containers/MessagesList.js'
+import PageNotFound from './components/PageNotFound.js'
 
 const styles = theme => ({
   root: {
@@ -73,10 +74,7 @@ class App extends Component {
       <Router>
         <div className={classes.root}>
           <CssBaseline />
-          <TitleBar
-            handleDrawerToggle={this.handleDrawerToggle}
-            header={`Humanise.AI Chat`}
-          />
+
           <Switch>
             <Redirect exact from='/' to='/conversations' />
             <Route
@@ -84,28 +82,10 @@ class App extends Component {
               path='/conversations'
               component={props => (
                 <>
-                <ConversationList
-                  {...props}
-                  mobileOpen={this.state.mobileOpen}
-                  conversations={conversations}
-                  sortMessages={this.sortMessages}
-                  handleDrawerToggle={this.handleDrawerToggle}
-                />
-                <MessagesList
-                  {...props}
-                  mobileOpen={this.state.mobileOpen}
-                  conversations={conversations}
-                  sortMessages={this.sortMessages}
-                  handleDrawerToggle={this.handleDrawerToggle}
-                />
-                </>
-              )}
-            />
-            <Route
-              exact
-              path='/conversations/:id'
-              component={props => (
-                <>
+                  <TitleBar
+                    handleDrawerToggle={this.handleDrawerToggle}
+                    header={`Humanise.AI Chat`}
+                  />
                   <ConversationList
                     {...props}
                     mobileOpen={this.state.mobileOpen}
@@ -123,6 +103,33 @@ class App extends Component {
                 </>
               )}
             />
+            <Route
+              exact
+              path='/conversations/:id'
+              component={props => (
+                <>
+                  <TitleBar
+                    handleDrawerToggle={this.handleDrawerToggle}
+                    header={`Humanise.AI Chat`}
+                  />
+                  <ConversationList
+                    {...props}
+                    mobileOpen={this.state.mobileOpen}
+                    conversations={conversations}
+                    sortMessages={this.sortMessages}
+                    handleDrawerToggle={this.handleDrawerToggle}
+                  />
+                  <MessagesList
+                    {...props}
+                    mobileOpen={this.state.mobileOpen}
+                    conversations={conversations}
+                    sortMessages={this.sortMessages}
+                    handleDrawerToggle={this.handleDrawerToggle}
+                  />
+                </>
+              )}
+            />
+            <Route component={PageNotFound} />
           </Switch>
         </div>
       </Router>
