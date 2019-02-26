@@ -11,7 +11,7 @@ const styles = theme => ({
 })
 
 const MessagesList = ({ classes, conversations, match }) => {
-  let messages = match.params.id > 0 ? (
+  let messages = match.params.id && conversations.length > 0 ? (
     conversations.find(conversation => conversation.id === match.params.id).messages
   ) : (
     <Typography>Please select a conversation</Typography>
@@ -20,7 +20,7 @@ const MessagesList = ({ classes, conversations, match }) => {
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
-      {match.params.id
+      {match.params.id && conversations.length > 0
         ? messages.map(message => <MessagesItem message={message} />)
         : messages}
     </main>
