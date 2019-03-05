@@ -7,7 +7,7 @@ import {
 import ChatIcon from '@material-ui/icons/Chat'
 import { Link } from 'react-router-dom'
 
-const ConversationItem = ({ conversation, sortMessages, key }) => {
+const ConversationItem = ({ conversation, sortMessages }) => {
   const linkToConversation = props => {
     return (
       <Link
@@ -21,14 +21,17 @@ const ConversationItem = ({ conversation, sortMessages, key }) => {
       />
     )
   }
+
+  let lastConversation = sortMessages(conversation.messages)[conversation.messages.length - 1]
+
   return (
-    <ListItem component={linkToConversation} button key={key}>
+    <ListItem component={linkToConversation} button>
       <ListItemIcon>
         <ChatIcon />
       </ListItemIcon>
       <ListItemText
         primary={conversation.title}
-        secondary={sortMessages(conversation.messages).text}
+        secondary={lastConversation.text}
       />
     </ListItem>
   )

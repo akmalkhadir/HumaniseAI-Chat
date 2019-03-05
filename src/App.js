@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+
+// modules
 import { CssBaseline } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import {
@@ -8,48 +10,50 @@ import {
   Switch
 } from 'react-router-dom'
 
+// data
 import data from './store.json'
+
+// component
 import TitleBar from './components/TitleBar'
 import ConversationList from './containers/ConversationList'
 import MessagesList from './containers/MessagesList.js'
 import PageNotFound from './components/PageNotFound.js'
 
-const styles = theme => ({
+const styles = {
   root: {
     display: 'flex'
-  },
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3
   }
-})
+}
 class App extends Component {
   state = {
     data: {},
     mobileOpen: false
   }
 
+  componentDidMount () {
+    this.setState({ data })
+  }
+
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }))
   }
 
-  componentDidMount () {
-    console.log(data)
-    this.setState({ data })
-  }
-
   parseMessagesList = () => {
     const { messages } = this.state.data
-    return messages.allIds.map(id => messages.byId[id])
+    return { ...messages }.allIds.map(id => messages.byId[id])
   }
 
   parseConversationList = () => {
     const { conversations } = this.state.data
-    let conversationList = conversations.allIds.map(
+    let conversationList = { ...conversations }.allIds.map(
       id => conversations.byId[id]
     )
-    let messagesList = this.parseMessagesList()
+
+    // sort & map Messages to specific Conversations
+    let messagesList = this.parseMessagesList().sort(
+      (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+    )
+
     return conversationList.map(conversation =>
       Object.assign({}, conversation, {
         messages: messagesList.filter(
@@ -59,10 +63,11 @@ class App extends Component {
     )
   }
 
+  // sort messages according to date - oldest -> latest
   sortMessages = messages => {
     return messages.sort(
-      (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
-    )[0]
+      (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+    )
   }
 
   render () {
@@ -80,7 +85,7 @@ class App extends Component {
             <Route
               exact
               path='/conversations'
-              component={props => (
+              render={props => (
                 <>
                   <TitleBar
                     handleDrawerToggle={this.handleDrawerToggle}
@@ -95,10 +100,8 @@ class App extends Component {
                   />
                   <MessagesList
                     {...props}
-                    mobileOpen={this.state.mobileOpen}
                     conversations={conversations}
                     sortMessages={this.sortMessages}
-                    handleDrawerToggle={this.handleDrawerToggle}
                   />
                 </>
               )}
@@ -106,7 +109,7 @@ class App extends Component {
             <Route
               exact
               path='/conversations/:id'
-              component={props => (
+              render={props => (
                 <>
                   <TitleBar
                     handleDrawerToggle={this.handleDrawerToggle}
@@ -121,15 +124,13 @@ class App extends Component {
                   />
                   <MessagesList
                     {...props}
-                    mobileOpen={this.state.mobileOpen}
                     conversations={conversations}
                     sortMessages={this.sortMessages}
-                    handleDrawerToggle={this.handleDrawerToggle}
                   />
                 </>
               )}
             />
-            <Route component={PageNotFound}/>
+            <Route render={PageNotFound} />
           </Switch>
         </div>
       </Router>

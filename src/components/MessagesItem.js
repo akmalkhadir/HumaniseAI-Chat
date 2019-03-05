@@ -33,7 +33,7 @@ const MessagesItem = ({ classes, message }) => {
               className={classes.inline}
               color='textPrimary'
             >
-              {new Date(message.timestamp).toLocaleDateString(undefined, options)}
+              {new Date(message.timestamp).toLocaleDateString('en-GB', options)}
             </Typography>
           }
         />
